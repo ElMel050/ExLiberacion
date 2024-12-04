@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+</head>
+
+<body>
+    <!-- Modal -->
+    <dialog id="modal">
+        <p>Contenido para el modal</p>
+        <form method="dialog">
+            <button>OK</button>
+        </form>
+    </dialog>
+    <!-- Botón para abrir el modal -->
+    <button id="button">Abrir Modal</button>
+
+    <!-- Script para abrir el modal -->
+    <script>
+        // Obtén el modal y el botón
+        const modal = document.getElementById('modal');
+        const button = document.getElementById('button');
+
+        // Añadir un evento al botón para abrir el modal
+        button.addEventListener('click', () => {
+            modal.showModal(); // Abre el modal
+        });
+    </script>
+</body>
+</html>

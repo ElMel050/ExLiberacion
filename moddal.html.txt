@@ -1,0 +1,133 @@
+Método 1: Usar un iframe para encapsular el contenido
+La forma más sencilla de limitar los estilos de Water.css a un solo elemento es usar un iframe. El contenido del iframe será completamente independiente de los estilos de la página principal, y puedes incluir Water.css solo dentro del iframe.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Contenido fuera del iframe</h1>
+
+    <iframe src="content.html" style="width: 100%; height: 400px;"></iframe>
+
+</body>
+</html>
+////En el archivo content.html (contenido dentro del iframe)://////////
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+</head>
+<body>
+    <section>
+        <p>Este es un contenido estilizado con Water.css.</p>
+    </section>
+</body>
+</html>
+//////
+Método 2: Aplicar los estilos a un solo contenedor usando un <style> personalizado
+Puedes incluir Water.css en la página, pero hacer que sus estilos solo afecten a un contenedor específico (<section>, <div>, etc.) utilizando CSS.
+
+Para ello, tendrás que modificar las reglas de estilo de Water.css para que solo se apliquen a los elementos dentro de un contenedor específico. Una forma de hacerlo es envuelviendo el contenido en un contenedor específico y aplicando reglas específicas para ese contenedor. Esto se puede lograr con un selector de contenedor y luego aplicar los estilos deseados.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <style>
+        /* Limitar el estilo de Water.css a solo los elementos dentro del contenedor con clase "water-container" */
+        .water-container {
+            all: unset; /* Resetear estilos */
+        }
+        
+        .water-container * {
+            all: revert; /* Hacer que todos los estilos dentro de este contenedor hereden los estilos predeterminados */
+        }
+
+        .water-container section,
+        .water-container div {
+            background: #222; /* Aquí puedes aplicar estilos específicos */
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contenido fuera del contenedor estilizado</h1>
+
+    <div class="water-container">
+        <section>
+            <p>Este es un contenido estilizado solo con Water.css dentro del contenedor.</p>
+        </section>
+    </div>
+
+    <div>
+        <p>Este es un contenido sin estilos de Water.css.</p>
+    </div>
+
+</body>
+</html>
+Explicación:
+all: unset: Esta propiedad se usa para eliminar todos los estilos heredados en el contenedor .water-container. Esto garantiza que no haya interferencia con los estilos predeterminados del documento.
+all: revert: Después de aplicar unset, se vuelve a establecer el comportamiento de los elementos dentro del contenedor para que los estilos de Water.css se apliquen solo dentro de esa sección.
+Nota: Este método puede no funcionar perfectamente en todos los casos, ya que no todos los estilos en Water.css son fácilmente encapsulables de esta manera. Algunas reglas pueden seguir afectando elementos globales fuera del contenedor.
+////////////////////////////////////////////////
+Método 3: Utilizar solo algunas clases de Water.css
+Si no quieres usar Water.css completamente, también podrías copiar solo las clases CSS que necesites para un contenedor específico, en lugar de cargar todo el archivo de Water.css.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Solo incluir algunas clases relevantes de Water.css */
+        .water-section {
+            background-color: #222;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .water-section button {
+            background-color: #4caf50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contenido fuera del contenedor estilizado</h1>
+
+    <div class="water-section">
+        <section>
+            <p>Este es un contenido estilizado solo con algunas clases específicas de Water.css.</p>
+        </section>
+        <button>Botón Estilizado</button>
+    </div>
+
+    <div>
+        <p>Este es un contenido sin los estilos personalizados.</p>
+    </div>
+</body>
+</html>
+Este método te da más control sobre qué estilos específicos aplicar a un contenedor, sin tener que aplicar todo el conjunto de estilos de Water.css.
+
+/////////7
+Resumen
+Para aplicar los estilos de Water.css a un solo contenedor, puedes usar:
+
+- Un iframe, para encapsular el contenido.
+- Modificar el CSS, utilizando un contenedor específico y forzando el uso de los estilos dentro de ese contenedor con all: unset y 	all: revert.
+- Usar solo algunas clases de Water.css, copiando manualmente las reglas que necesites para un contenedor específico.
