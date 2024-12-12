@@ -9,10 +9,38 @@
 
 <body>
     <!-- Modal -->
-    <dialog id="modal">
-        <p>Contenido para el modal</p>
+    <dialog id="pop" popover>
+        <button id="cerrar">Cerrar</button>
         <form method="dialog">
-            <button>OK</button>
+            <section class="container-fluid d-flex" style="display: flex;flex-direction: column;flex-wrap: wrap;">
+                <div class="login-container" style="margin:0 1vw;padding:1px; max-width: 40vh;justify-items: center;">
+                    <h1>Sign In</h1>
+                    <!-- Formulario de inicio de sesión -->
+                    <form id="loginForm" onsubmit="validateUserAndPass(event)">
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email or phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit">Sign In</button>
+                        <div class="che container d-flex justify-content-between">
+                            <div>
+                                <input type="checkbox" name="remember" id="remember"> Remember me
+                            </div>
+                            <a href="http://" target="_blank" rel="noopener noreferrer">Need Help?</a>
+                        </div>
+                    </form>
+                    <div class="now-to mt-5">
+                        <p>New to Netflix? <a href="contraseña.html">Sign Up Now</a></p>
+                    </div>
+                    <div class="note">
+                        <p>This page is protected by Google reCAPTCHA to ensure you're not a bot
+                            <a href="registro.html">Learn More</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
         </form>
     </dialog>
     <!-- Botón para abrir el modal -->
@@ -21,12 +49,16 @@
     <!-- Script para abrir el modal -->
     <script>
         // Obtén el modal y el botón
-        const modal = document.getElementById('modal');
+        const form = document.getElementById('pop');
         const button = document.getElementById('button');
+        const cerrar = document.getElementById('cerrar');
 
         // Añadir un evento al botón para abrir el modal
         button.addEventListener('click', () => {
-            modal.showModal(); // Abre el modal
+            form.showPopover(); // Abre el form
+        });
+        cerrar.addEventListener('click', () => {
+            form.hidePopover();
         });
     </script>
 </body>
